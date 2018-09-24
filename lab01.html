@@ -2,8 +2,8 @@
 <head>
 <title>first animation </title>
 </head>
-<BODY><p> First lesson 2</p>
-	hello world
+<BODY><p> First homework</p>
+	
 <canvas id='lab01', height='1000', width='1000'   style='border-width':3px'/>
 hello world
 <script>
@@ -11,11 +11,11 @@ hello world
 		var canvas = document.getElementById('lab01');
 		var ctx = canvas.getContext('2d');
 		
-		for (i = 5; i < 1000; ) { //препятствия
+		for (i = 0; i < 1000; ) { //препятствия
 		ctx.fillStyle = '#8b4513'; 
-		ctx.fillRect(i, 130, 10, 40); 
+		ctx.fillRect(i+75, 130, 10, 30); 
 		
-		i = i + 93;
+		i = i + 90;
 	} 
 
 		var xvar = 0;
@@ -23,20 +23,26 @@ hello world
 		setInterval(function(){ <!--running black block(runner :DDD )-->
 					per+=5;
 				
-					if((per%100)<=50){
+					if((per%100)<50){
+					ctx.fillStyle = '#ffffff'; //белый
+					ctx.fillRect(xvar, 80, 30, 40);
+
 					ctx.fillStyle = '#ffffff'; //белый
 					ctx.fillRect(xvar, 120, 30, 40);
 					xvar+=5;
 					ctx.fillStyle = '#000000';//черный
 					ctx.fillRect(xvar, 120, 30, 40);
-
 
 					}
 	
-					else if((per%100)>=50){
+					else if((per%100)==50){
+						ctx.fillStyle = '#ffffff';
+						ctx.fillRect(xvar, 120, 30, 40);
+						per+=5;
+						} 
+					else if((per%100)>50){
 
-					ctx.fillStyle = '#ffffff';
-					ctx.fillRect(xvar, 120, 30, 40);
+					
 					
 					ctx.fillStyle = '#ffffff'; //белый
 					ctx.fillRect(xvar, 80, 30, 40);
@@ -49,7 +55,7 @@ hello world
 
 					
 					}
-					}, 200);
+					}, 100);
 		
 </script>	
 </BODY>
