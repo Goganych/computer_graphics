@@ -1,0 +1,75 @@
+<HTML>
+<head>
+<title>homework_2 </title>
+</head>
+
+<BODY><p> Second homework</p>	
+<canvas id='lab02', height='1000', width='1000'   ></canvas>
+<script>
+		var buffer = [];
+			var img = new Image();
+			img.src = 'img.jpg';//src ищет путь изображения
+			img.onload = function(){ //при помощи onload функция запустится при загрузке страницы
+				understudy(this);
+			}
+
+			function understudy(img){
+				var canvas = document.getElementById('lab02');
+				var ctx = canvas.getContext('2d');
+				ctx.drawImage(img,0,0);
+
+				var imageData, imageDataUnderstudy;
+				var data, dataUnderstudy;
+				var sumRed, sumGreen, sumBlue;
+				var tmpRed, tmpGreen, tmpBlue;
+
+				var alghoritm = function(){
+					for(var i = 0; i < img.height; ++i){					
+						for(var j = 0; j < img.width; ++j){
+							if((i == 0) || (i == img.width) || (j == 0) || (j == img.height)){
+								imageData = ctx.getImageData(i, j, 3, 3);
+								data = imageData.data;
+								tmpRed = data[0];
+								tmpGreen = data[1];
+								tmpBlue = data[2];
+								buffer.push(tmpRed);
+								buffer.push(tmpGreen);
+								buffer.push(tmpBlue);
+								buffer.push(255);
+							}
+							else{
+								imageData = ctx.getImageData(i, j, 3, 3);
+								data = imageData.data;
+								sumRed = (data[0] + data[4] + data[8] + data[12] + data[16] + data[20] + data[24] + data[28] + data[32])/9;
+								tmpRed = Math.floor(sumRed);
+								sumGreen = (data[1] + data[5] + data[9] + data[13] + data[17] + data[21] + data[25] + data[29] + data[33])/9;
+								tmpGreen = Math.floor(sumGreen);
+								sumBlue = (data[2] + data[6] + data[10] + data[14] + data[18] + data[22] + data[26] + data[30] + data[34])/9;
+								tmpBlue = Math.floor(sumBlue);
+								buffer.push(tmpRed);
+								buffer.push(tmpGreen);
+								buffer.push(tmpBlue);
+								buffer.push(255);
+							} 
+							
+						}
+						
+					}
+				}
+				alghoritm();
+
+				var canvasUnderstudy = document.getElementById("lab02Understudy");
+				var ctxx = canvasUnderstudy.getContext('2d');
+
+				imageDataUnderstudy = ctxx.getImageData(800, 0, img.width, img.height);//информация о размере изображения и его расположении в дабл холсте
+				dataUnderstudy = imageDataUnderstudy.data;// массив с значениями о всех пикселях изображения
+
+				for(var q = 0; q < dataUnderstudy.length; ++q){
+					dataUnderstudy[q] = buffer[q];
+				}
+
+				ctx.putImageData(imageDataUnderstudy, 900, 0);
+			}
+</script>	
+</BODY>
+</HTML>
